@@ -23,6 +23,21 @@ A new  preventative vaccine (covid91) is under test in clinical trials. Given th
 
 # Males
 
+```{r}
+Males<- filter(Covid91, sex=="Man")
+```
+
+```{r}
+barchartGC(~infected + treatment,data=Males)
+barchartGC(~infected + treatment,data=Males, type="percent")
+
+```
+
+The bar chart reveals that those who had taken the placebo had got sicker than the males who took the Covid91. In the this chart we can see that the placebo bar is almost double in size compared to the drug. This suggests that the drug is more effective for the male group.
+
+
+
+
 
 # Females
 
