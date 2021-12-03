@@ -55,7 +55,7 @@ chisqtestGC(table1)
 fisher.test(table1)
 Malesmod<- fisher.test(table1)
 ```
-The Fisher Test gives us the Males getting the treatment and getting sick with the placebo 406/4276 and Males getting the treatment and getting sick with the drug is 201/4330. The odds ratio is 406/4276 divided by 201/4330. The odds ration shows that males are 2.04x more likely to get sick from taking the placebo than the drug. Therefore we can see that the drug is more effective. With the Chi sq test We can see that the p-value is extremely small, 2.2e-16. This means we can reject the null hypothesis and that there is a difference between the males that took the placebo and the Males that took the drug.
+The Fisher Test gives us the Males getting the treatment and getting sick with the placebo 406/4276 and Males getting the treatment and getting sick with the drug is 201/4330. The odds ratio 406/4276 divided by 201/4330 is 2. The odds ration shows that males are 2x more likely to get sick from taking the placebo than the drug. Therefore we can see that the drug is more effective. With the Chi sq test We can see that the p-value is extremely small, 2.2e-16. This means we can reject the null hypothesis and that there is a difference between the males that took the placebo and the Males that took the drug.
 
 ## Calculating Effectiveness 
 
@@ -86,13 +86,13 @@ barchartGC(~infected + treatment,data=Females, type="percent")
 
 ```
 
-The bar chart reveals that those who had taken the drug had got sicker than the females who took the Covid91. In the this chart we can see that the drug bar is bigger than compared to the placebo. This suggests that the drug is more not as effective for the female group.
+The bar chart reveals that those who had taken the drug had got sicker than the females who took the Covid91. In the this chart we can see that the drug bar is bigger when compared to the placebo when looking at the sick. This suggests that the drug is not as effective for the female group.
 
 ## Numerical Summaries 
 ```{r}
-table1 <- xtabs(~infected + treatment, data=Females)
-rowPerc(table1)
-colPerc(table1)
+table2 <- xtabs(~infected + treatment, data=Females)
+rowPerc(table2)
+colPerc(table2)
 ```
 
 With this table we can tell that 58% of the sick females had the treatment drug. While 42% of the females that were sick took the placebo. This lets us know that the treatment is in not working for the females. 
@@ -101,13 +101,13 @@ With this table we can tell that 58% of the sick females had the treatment drug.
 ## Inferential  
 
 ```{r}
-chisq.test(table1)
-chisqtestGC(table1)
-fisher.test(table1)
-Femalesmod<- fisher.test(table1)
+chisq.test(table2)
+chisqtestGC(table2)
+fisher.test(table2)
+Femalesmod<- fisher.test(table2)
 ```
 
-The Fisher Test gives us the Females getting the treatment and getting sick with the drug 165/5103 and Females getting the treatment and getting sick with the placebo is 141/5378. The odds ratio is 165/5103 divided by 141/5378. The odds ration shows that females are 1.2x more likely to get sick from taking the drug than the placebo. Therefore we can see that the drug is not effective for females. With the Chi sq test We can see that the p-value is small, 6e-04. This means we can reject the null hypothesis and that there is a difference between the females that took the drug that was not effective than to the placebo.
+The Fisher Test gives us the Females getting the treatment and getting sick with the drug 196/5072 and Females getting the treatment and getting sick with the placebo is 141/5378. The odds ratio is 196/5072 divided by 141/5378. The odds ration shows that females are 1.5x more likely to get sick from taking the drug than the placebo. Therefore we can see that the drug is not effective for females. With the Chi sq test We can see that the p-value is small, 6e-04. This means we can reject the null hypothesis and that there is a difference between the females that took the drug that was not effective than to the placebo.
 
 
 ## Calculating Effectiveness 
@@ -134,10 +134,49 @@ DrugUser<- filter(Covid91, DrugUser=="yes")
 
 
 ```{r}
-barchartGC(~infected + treatment,data=Females)
-barchartGC(~infected + treatment,data=Females, type="percent")
+barchartGC(~infected + treatment,data=DrugUser)
+barchartGC(~infected + treatment,data=DrugUser, type="percent")
 
 ```
+
+The bar chart reveals that those who had taken the placebo had got sicker than the males who took the drug. In the this chart we can see that the placebo bar is almost double in size compared to the drug. This suggests that the drug is more effective for the DrugUsers group.
+
+
+## Numerical Summaries 
+```{r}
+table3 <- xtabs(~infected + treatment, data=DrugUser)
+rowPerc(table3)
+colPerc(table3)
+```
+
+With this table we can tell that 33% of the sick Drug Users had the treatment drug. While 67% of the Drug Users that were sick took the placebo. This represents a 2 to 1 difference. This lets us know that the treatment is in fact working. 
+
+
+## Inferential  
+
+```{r}
+chisq.test(table3)
+chisqtestGC(table3)
+fisher.test(table3)
+DrugUsersmod<- fisher.test(table3)
+```
+
+The Fisher Test gives us the Drug Users getting the treatment and getting sick with the placebo 78/1130 and Drug Users getting the treatment and getting sick with the drug is 39/1036. The odds ratio is 78/1130 divided by 39/1036 is 1.8. The odds ration shows that Drug Users are 1.8x more likely to get sick from taking the placebo than the drug. Therefore we can see that the drug is more effective. With the Chi sq test We can see that the p-value is small, 0.002. This means we can reject the null hypothesis and that there is a difference between the Drug Users that took the placebo and the Drug Users that took the drug.
+
+## Calculating Effectiveness 
+
+
+```{r}
+DrugUserEff <- DrugUsersmod$estimate/(DrugUsersmod$estimate +1)*100
+DrugUserlow <- DrugUsersmod$conf.int[1]/(DrugUsersmod$conf.int[1]+1)*100
+DrugUserhigh <- DrugUsersmod$conf.int[2]/(DrugUsersmod$conf.int[2]+1)*100
+
+options(digits=2)
+```
+
+
+The efficacy of this drug for the Drug Users is `r DrugUserEff`. The confidence interval for Drug Users efficacy is `r DrugUserlow` to `r DrugUserhigh`.
+
 
 # LGBTQ
 
