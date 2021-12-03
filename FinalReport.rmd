@@ -86,7 +86,7 @@ barchartGC(~infected + treatment,data=Females, type="percent")
 
 ```
 
-The bar chart reveals that those who had taken the drug had got sicker than the females who took the Covid91. In the this chart we can see that the drug bar is bigger when compared to the placebo when looking at the sick. This suggests that the drug is not as effective for the female group.
+The bar chart reveals that those who had taken the drug had got sicker than the females who took the placebos. In the this chart we can see that the drug bar is bigger when compared to the placebo when looking at the sick. This suggests that the drug is not as effective for the female group.
 
 ## Numerical Summaries 
 ```{r}
@@ -107,7 +107,7 @@ fisher.test(table2)
 Femalesmod<- fisher.test(table2)
 ```
 
-The Fisher Test gives us the Females getting the treatment and getting sick with the drug 196/5072 and Females getting the treatment and getting sick with the placebo is 141/5378. The odds ratio is 196/5072 divided by 141/5378. The odds ration shows that females are 1.5x more likely to get sick from taking the drug than the placebo. Therefore we can see that the drug is not effective for females. With the Chi sq test We can see that the p-value is small, 6e-04. This means we can reject the null hypothesis and that there is a difference between the females that took the drug that was not effective than to the placebo.
+The Fisher Test gives us the Females getting the treatment and getting sick with the drug 196/5072 and Females getting the treatment and getting sick with the placebo is 141/5378. The odds ratio is 141/5378 divided by 196/5072 is 0.68. The odds ration shows that females are 0.68x more likely to get sick from taking the placebo than the drug. Therefore we can see that the drug is not effective for females. With the Chi sq test We can see that the p-value is small, 6e-04. This means we can reject the null hypothesis and that there is a difference between the females that took the drug that was not effective than to the placebo.
 
 
 ## Calculating Effectiveness 
@@ -180,8 +180,56 @@ The efficacy of this drug for the Drug Users is `r DrugUserEff`. The confidence 
 
 # LGBTQ
 
+```{r}
+LGBTQ<- filter(Covid91, LGBTQ=="gay")
+```
+
+### Plot barplots
 
 
+```{r}
+barchartGC(~infected + treatment,data=LGBTQ)
+barchartGC(~infected + treatment,data=LGBTQ, type="percent")
+
+```
+
+The bar chart reveals that the LGBTQ who had taken the drug had got sicker than the LGBTQ who took the placebo. In the this chart we can see that the drug bar double it's size when compared to the placebo when looking at the sick. This suggests that the vaccine is not as effective for the LGBTQ group.
+
+
+## Numerical Summaries 
+```{r}
+table4 <- xtabs(~infected + treatment, data=LGBTQ)
+rowPerc(table4)
+colPerc(table4)
+```
+
+With this table we can tell that 71% of the LGBTQ group had the treatment drug. While 29% of the LGBTQ group that were sick took the placebo. This lets us know that the treatment is in fact failing for the LGBTQ group and they should not take this drug.
+
+
+## Inferential  
+
+```{r}
+chisq.test(table4)
+chisqtestGC(table4)
+fisher.test(table4)
+LGBTQsmod<- fisher.test(table4)
+```
+
+The Fisher Test gives us the LGBTQ group getting the treatment and getting sick with the placebo of 34/979 and LGBTQ group getting the treatment and getting sick with the drug is 82/947. The odds ratio is 34/979 divided by 82/947 is 0.4. The odds ration shows that the LGBTQ group is 0.4x more likely to get sick from taking the placebo than the drug. Therefore we can see that the vaccine is not effective for the LGBTQ group. With the Chi sq test we can see that the p-value is small, 6e-04. This means we can reject the null hypothesis and that there is a difference between the LGBTQ group that took the drug that was not effective and the LGBTQ group that took the placebo.
+
+
+## Calculating Effectiveness 
+
+
+```{r}
+LGBTQEff <- LGBTQsmod$estimate/(LGBTQsmod$estimate +1)*100
+LGBTQlow <- LGBTQsmod$conf.int[1]/(LGBTQsmod$conf.int[1]+1)*100
+LGBTQhigh <- LGBTQsmod$conf.int[2]/(LGBTQsmod$conf.int[2]+1)*100
+
+options(digits=2)
+```
+
+The efficacy of this drug for the LGBTQ is `r LGBTQEff`. The confidence interval for LGBTQ efficacy is `r LGBTQlow` to `r LGBTQhigh`.
 
 # Conclusions and recommendations
 
