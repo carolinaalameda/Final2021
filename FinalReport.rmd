@@ -139,7 +139,7 @@ barchartGC(~infected + treatment,data=DrugUser, type="percent")
 
 ```
 
-The bar chart reveals that those who had taken the placebo had got sicker than the males who took the drug. In the this chart we can see that the placebo bar is almost double in size compared to the drug. This suggests that the drug is more effective for the DrugUsers group.
+The bar chart reveals that those who had taken the placebo had got sicker than the Drug Users who took the drug. In the this chart we can see that the placebo bar is almost double in size compared to the drug. This suggests that the drug is more effective for the DrugUsers group.
 
 
 ## Numerical Summaries 
