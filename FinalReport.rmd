@@ -229,10 +229,13 @@ LGBTQhigh <- LGBTQsmod$conf.int[2]/(LGBTQsmod$conf.int[2]+1)*100
 options(digits=2)
 ```
 
+
 The efficacy of this drug for the LGBTQ is `r LGBTQEff`. The confidence interval for LGBTQ efficacy is `r LGBTQlow` to `r LGBTQhigh`.
+
+
 
 # Conclusions and recommendations
 
-
+To conclude we figured out who the new preventative vaccine works for and who it doesn’t. It seems that the vaccine is only effective for the males and drug users according to the effectiveness. The effectiveness of the drug for males is 67.16 and the effectiveness for drug users is 64.7. On the other hand the vaccine is not effective for the females or the LGBTQ group. The effectiveness for females is 40.42 and the effectiveness for the LGBTQ group is 28.64. So we can recommend that males and drug users to take the vaccine because more than half of the people that take the drug don’t get sick. And we also shouldn’t recommend females or the LGBTQ group to take the vaccine because it is inefficient and could risk them getting more sick.
 
 
