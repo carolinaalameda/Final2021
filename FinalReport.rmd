@@ -27,6 +27,9 @@ A new  preventative vaccine (covid91) is under test in clinical trials. Given th
 Males<- filter(Covid91, sex=="Man")
 ```
 
+### Plot barplots
+
+
 ```{r}
 barchartGC(~infected + treatment,data=Males)
 barchartGC(~infected + treatment,data=Males, type="percent")
@@ -35,11 +38,45 @@ barchartGC(~infected + treatment,data=Males, type="percent")
 
 The bar chart reveals that those who had taken the placebo had got sicker than the males who took the Covid91. In the this chart we can see that the placebo bar is almost double in size compared to the drug. This suggests that the drug is more effective for the male group.
 
+## Numerical Summaries 
+```{r}
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
+```
+
+With this table we can tell that 33.11% of the sick males had the treatment drug. While 66.89% of the males that were sick took the placebo. This represents a 2 to 1 difference. This lets us know that the treatment is in fact working. 
+
+## Inferential  
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+Malesmod<- fisher.test(table1)
+```
+The Fisher Test gives us the Males getting the treatment and getting sick with the placebo 406/4276 and Males getting the treatment and getting sick with the drug is 201/4330. The odds ratio is 406/4276 divided by 201/4330. The odds ration shows that males are 2.04x more likely to get sick from taking the placebo than the drug. Therefore we can see that the drug is more effective. With the Chi sq test We can see that the p-value is extremely small, 2.2e-16. This means we can reject the null hypothesis and that there is a difference between the males that took the placebo and the Males that took the drug.
+
+## Calculating Effectiveness 
 
 
+```{r}
+MaleEff <- Malesmod$estimate/(Malesmod$estimate +1)*100
+Malelow <- Malesmod$conf.int[1]/(Malesmod$conf.int[1]+1)*100
+Malehigh <- Malesmod$conf.int[2]/(Malesmod$conf.int[2]+1)*100
+
+options(digits=2)
+```
+ 
+ The efficacy of this drug for males is `r MaleEff`. The confidence interval for Male efficacy is `r Malelow` to `r Malehigh`.
 
 
 # Females
+
+
+
+
+
 
 # Drug Users
 
